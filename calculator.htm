@@ -1,0 +1,93 @@
+<html lang="ja">
+<head>
+<title>JS勉強会_課題(電卓_石井)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=shift_jis">
+<script type="text/javascript"><!--
+	nowAns = 0;					// 現在の合計値
+	nowInput = "";			// 現在入力している値
+	beforeInputNumFlg = 0;	// 数字入力フラグ
+	beforeCalc = "＋";		// 前回の演算子
+
+// 数字入力の場合の処理
+	function num(input){
+		if(nowInput == "0"){
+			nowInput = "";
+		}
+		nowInput += input;
+		beforeInputNumFlg = 1;
+		document.form.answer.value = nowInput;
+	}
+
+// 演算子入力の場合の処理
+	function calculate(input){	
+		if(beforeInputNumFlg == 1){
+			if(beforeCalc == "＋"){
+				nowAns = nowAns + parseFloat(nowInput);
+			}else if(beforeCalc == "-"){
+				nowAns = nowAns - parseFloat(nowInput);
+			}else if(beforeCalc == "×"){
+				nowAns = nowAns * parseFloat(nowInput);
+			}else if(beforeCalc == "÷"){
+				nowAns = nowAns / parseFloat(nowInput);
+			}
+			nowInput = "0";
+			beforeInputNumFlg = 0;
+			document.form.answer.value = nowAns;
+		}
+		if (input == "＝"){
+			beforeCalc = "＋";
+		}else{
+			beforeCalc = input;
+		}
+	}
+
+// クリア入力の場合の処理
+	function allClear(){
+		nowAns = 0;
+		nowInput = "";
+		beforeInputNumFlg = "";
+		beforeCalc = "＋";
+		document.form.answer.value = nowAns;
+	}
+// -->
+</script>
+
+</head>
+<body>
+<form name="form" action="" method="">
+<table>
+    <tr>
+        <td colspan="4"><input type="text" size="50" style="text-align:right;" disabled="true" name="answer" class="answer" value="0"></td>
+    </tr>
+    <tr>
+        <td colspan="2"><input type="button" style="width: 100%; height: 30px;" value="　"></td>
+        <td colspan="2"><input type="button" style="width: 100%; height: 30px;" value="Ｃ" onClick="allClear()"></td>
+    </tr>
+    <tr>
+        <td width="25%"><input type="button" style="width: 100%; height: 30px;" value="7" onClick="num(this.value)"></td>
+        <td width="25%"><input type="button" style="width: 100%; height: 30px;" value="8" onClick="num(this.value)"></td>
+        <td width="25%"><input type="button" style="width: 100%; height: 30px;" value="9" onClick="num(this.value)"></td>
+        <td width="25%"><input type="button" style="width: 100%; height: 30px;" value="÷" onClick="calculate(this.value)"></td>
+    </tr>
+    <tr>
+        <td><input type="button" style="width: 100%; height: 30px;" value="4" onClick="num(this.value)"></td>
+        <td><input type="button" style="width: 100%; height: 30px;" value="5" onClick="num(this.value)"></td>
+        <td><input type="button" style="width: 100%; height: 30px;" value="6" onClick="num(this.value)"></td>
+        <td><input type="button" style="width: 100%; height: 30px;" value="×" onClick="calculate(this.value)"></td>
+    </tr>
+    <tr>
+        <td><input type="button" style="width: 100%; height: 30px;" value="1" onClick="num(this.value)"></td>
+        <td><input type="button" style="width: 100%; height: 30px;" value="2" onClick="num(this.value)"></td>
+        <td><input type="button" style="width: 100%; height: 30px;" value="3" onClick="num(this.value)"></td>
+        <td><input type="button" style="width: 100%; height: 30px;" value="－" onClick="calculate(this.value)"></td>
+    </tr>
+    <tr>
+        <td><input type="button" style="width: 100%; height: 30px;" value="0" onClick="num(this.value)"></td>
+        <td><input type="button" style="width: 100%; height: 30px;" value="."></td>
+        <td><input type="button" style="width: 100%; height: 30px;" value="＋" onClick="calculate(this.value)"></td>
+        <td><input type="button" style="width: 100%; height: 30px;" value="＝" onClick="calculate(this.value)"></td>
+    </tr>
+</table>
+</form>
+</body>
+</html>
